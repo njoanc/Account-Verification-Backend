@@ -1,0 +1,28 @@
+{
+  "name": "account-verification-backend",
+  "version": "1.0.0",
+  "description": "User Account Verification application",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/njoanc/Account-Verification-Backend.git"
+  },
+  "keywords": [
+    "nodejs",
+    "expressjs",
+    "chai",
+    "mongodb",
+    "atlas",
+    "aws",
+    "s3"
+  ],
+  "author": "Jeanne d'Arc NYIRAMWIZA",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/njoanc/Account-Verification-Backend/issues"
+  },
+  "homepage": "https://github.com/njoanc/Account-Verification-Backend#readme"
+}
