@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import { MaritalStatus } from "../utils/enum/maritalStatus.enum";
 import { GenderStatus } from "../utils/gender.enum";
+import bcrypt from "bcrypt";
 
 // Define user schema
 const userSchema = new mongoose.Schema({
@@ -53,6 +54,9 @@ const userSchema = new mongoose.Schema({
   passportPicture: { type: String },
 });
 
+userSchema.methods.verifyPassword = async function (password) {
+  return await bcrypt.compare(password, this.password);
+};
 const User = mongoose.model("User", userSchema);
 
 export default User;

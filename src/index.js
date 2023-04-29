@@ -4,8 +4,8 @@ import cors from "cors";
 import dotenv from "dotenv";
 import connectDB from "./config/db";
 import users from "./routes/users";
-import swaggerUi from "swagger-ui-express";
-import swaggerDocument from "../swagger.json";
+// import swaggerUi from "swagger-ui-express";
+// import swaggerDocument from "../swagger.json";
 
 const app = express();
 
@@ -21,7 +21,7 @@ app.use(cors());
 
 // Routes
 app.use("/users", users);
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+// app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Start server
 const PORT = process.env.PORT || 5000;
