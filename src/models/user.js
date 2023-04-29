@@ -9,14 +9,16 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
-    validate: {
-      validator: function (v) {
-        return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
-          v
-        );
+    password: {
+      type: String,
+      required: true,
+      validate: {
+        validator: function (v) {
+          return /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,12}$/.test(v);
+        },
+        message: (props) =>
+          `${props.value} is not a valid password. Password must be alphanumeric and between 8 and 12 characters.`,
       },
-      message:
-        "Password must be at least 8 characters long and include a combination of uppercase and lowercase letters, numbers, and special characters.",
     },
   },
   profilePicture: { type: String },
@@ -28,17 +30,29 @@ const userSchema = new mongoose.Schema({
   dateOfBirth: { type: String },
   maritalStatus: { type: String, enum: MaritalStatus },
   nationality: { type: String },
-  nationalId: { type: String, unique: true },
-  passportId: { type: String, unique: true },
+  nationalId: {
+    type: String,
+    validate: {
+      validator: function (v) {
+        return /^1([9][5-9]|[0-9][0-9])\d{8}$/.test(v);
+      },
+      message: "Invalid Rwandan national ID format",
+    },
+  },
+  passportId: {
+    type: String,
+    validate: {
+      validator: function (v) {
+        return /^[A-Z]{2}[A-Z0-9]{3,20}$/.test(v);
+      },
+      message: "Invalid passport ID format",
+    },
+  },
+
   nationalIdPicture: { type: String },
   passportPicture: { type: String },
 });
+
 const User = mongoose.model("User", userSchema);
-userSchema.set("toJSON", {
-  transform: (document, returnedObject) => {
-    returnedObject.id = returnedObject._id.toString();
-    delete returnedObject._id;
-    delete returnedObject.__v;
-  },
-});
-export { User };
+
+export default User;
