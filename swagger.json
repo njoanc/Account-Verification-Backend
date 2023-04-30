@@ -6,7 +6,7 @@
     "description": "API documentation for User Verification System Application"
   },
   "paths": {
-    "/users": {
+    "/users/signup": {
       "post": {
         "summary": "Create a new user",
         "operationId": "createUser",
@@ -29,6 +29,30 @@
           }
         }
       }
+    },
+    "/users/login": {
+      "post": {
+        "summary": "Normal login",
+        "operationId": "login",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Login"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "User Logged in successfully"
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        }
+      }
     }
   },
 
@@ -37,10 +61,37 @@
       "User": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64"
+          "name": {
+            "type": "string"
           },
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "password": {
+            "type": "string"
+          },
+          "gender": {
+            "type": "string"
+          },
+          "age": {
+            "type": "number"
+          },
+          "dateOfBirth": {
+            "type": "string"
+          },
+          "maritalStatus": {
+            "type": "string"
+          },
+          "nationality": {
+            "type": "string"
+          }
+        },
+        "required": ["name", "email", "password"]
+      },
+      "Login": {
+        "type": "object",
+        "properties": {
           "email": {
             "type": "string",
             "format": "email"
@@ -49,7 +100,7 @@
             "type": "string"
           }
         },
-        "required": ["username", "email", "password"]
+        "required": ["email", "password"]
       }
     }
   }
