@@ -59,6 +59,8 @@ const userSchema = new mongoose.Schema({
   nationalIdPicture: { type: String },
   passportPicture: { type: String },
   isEmailVerified: { type: Boolean, default: false },
+  resetToken: { type: String },
+  resetExpires: { type: String },
 });
 
 userSchema.methods.verifyPassword = async function (password) {

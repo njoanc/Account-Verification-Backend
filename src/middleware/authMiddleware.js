@@ -1,6 +1,6 @@
 // middleware/authMiddleware.js
 
-exports.isAuthenticated = (req, res, next) => {
+export const isAuthenticated = (req, res, next) => {
   if (req.isAuthenticated()) {
     return next();
   } else {
