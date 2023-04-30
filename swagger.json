@@ -70,6 +70,21 @@
           },
           "password": {
             "type": "string"
+          },
+          "gender": {
+            "type": "string"
+          },
+          "age": {
+            "type": "number"
+          },
+          "dateOfBirth": {
+            "type": "string"
+          },
+          "maritalStatus": {
+            "type": "string"
+          },
+          "nationality": {
+            "type": "string"
           }
         },
         "required": ["name", "email", "password"]

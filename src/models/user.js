@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import { MaritalStatus } from "../utils/enum/maritalStatus.enum";
 import { GenderStatus } from "../utils/gender.enum";
+import { AccountState } from "../utils/enum/accountState";
 import bcrypt from "bcrypt";
 
 // Define user schema
@@ -28,6 +29,11 @@ const userSchema = new mongoose.Schema({
     enum: GenderStatus,
   },
   age: { type: Number },
+  accountState: {
+    type: String,
+    enum: AccountState,
+    default: AccountState.UNVERIFIED,
+  },
   dateOfBirth: { type: String },
   maritalStatus: { type: String, enum: MaritalStatus },
   nationality: { type: String },
@@ -52,6 +58,7 @@ const userSchema = new mongoose.Schema({
 
   nationalIdPicture: { type: String },
   passportPicture: { type: String },
+  isEmailVerified: { type: Boolean, default: false },
 });
 
 userSchema.methods.verifyPassword = async function (password) {

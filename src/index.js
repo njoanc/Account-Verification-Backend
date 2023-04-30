@@ -6,11 +6,15 @@ import connectDB from "./config/db";
 import users from "./routes/users";
 // import swaggerUi from "swagger-ui-express";
 // import swaggerDocument from "../swagger.json";
+// import googleAuth from "./config/googleAuth";
 
 const app = express();
 
 dotenv.config();
 connectDB();
+// googleAuth();
+
+app.set("view engine", "ejs");
 
 app.use(express.json());
 
