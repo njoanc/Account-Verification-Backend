@@ -1,9 +1,20 @@
-// middleware/authMiddleware.js
+import jwt from "jsonwebtoken";
 
-exports.isAuthenticated = (req, res, next) => {
-  if (req.isAuthenticated()) {
+const isAuthenticated = (req, res, next) => {
+  const authHeader = req.headers.authorization;
+  if (!authHeader) {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
+
+  const token = authHeader.split(" ")[1];
+
+  try {
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET_KEY);
+    req.userId = decodedToken.userId;
     return next();
-  } else {
-    res.status(401).json({ message: "Unauthorized" });
+  } catch (err) {
+    return res.status(401).json({ message: "Invalid token" });
   }
 };
+
+export { isAuthenticated };

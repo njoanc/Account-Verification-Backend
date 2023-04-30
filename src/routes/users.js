@@ -2,6 +2,7 @@ import express from "express";
 import users from "../controllers/users.js";
 import auth from "../controllers/auth.js";
 import passport from "../config/passport";
+import { isAuthenticated } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
@@ -26,5 +27,8 @@ router.get(
     res.redirect("/users/success");
   }
 );
+
+router.post("/reset-password", isAuthenticated, auth.resetPassword);
+router.post("/reset-password/:token", isAuthenticated, auth.resetLink);
 
 export default router;
