@@ -4,6 +4,7 @@ import User from "../models/user";
 import Token from "../models/token";
 import sendMail from "../utils/sendMail";
 import crypto from "crypto";
+import { AccountState } from "../utils/enum/accountState";
 
 // Create User
 const createUser = async (req, res) => {
@@ -81,4 +82,68 @@ const verifyEmail = async (req, res) => {
   }
 };
 
-export default { createUser, verifyEmail };
+const accountVerification = async (req, res) => {
+  const { userId } = req.params;
+  const { nationalId, passportNumber } = req.body;
+  const { nationalIdPic, passportPic } = req.files || {};
+
+  try {
+    let updatedFields = {
+      nationalId: nationalId,
+      passportNumber: passportNumber,
+      accountState: AccountState.PENDING,
+    };
+
+    if (nationalIdPic) {
+      const nationalIdPicLocation = nationalIdPic[0].Location;
+      updatedFields.nationalIdPic = nationalIdPicLocation;
+      updatedFields.accountState = AccountState.VERIFIED;
+      await saveFileLocationToDatabase(
+        userId,
+        "nationalIdPic",
+        nationalIdPicLocation
+      );
+    }
+
+    if (passportPic) {
+      const passportPicLocation = passportPic[0].Location;
+      updatedFields.passportPic = passportPicLocation;
+      updatedFields.accountState = AccountState.VERIFIED;
+      await saveFileLocationToDatabase(
+        userId,
+        "passportPic",
+        passportPicLocation
+      );
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(userId, updatedFields, {
+      new: true,
+    });
+    const message = `Dear ${updatedUser.name},Your account has been verified`;
+    await sendMail(updatedUser.email, "Account Verification", message);
+    return res.status(200).json({ messaged: "Your account has been verified" });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ message: "Server error" });
+  }
+};
+
+async function saveFileLocationToDatabase(userId, fieldName, fileLocation) {
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      console.error(`User with id ${userId} not found`);
+      return;
+    }
+
+    user[fieldName] = fileLocation;
+    await user.save();
+  } catch (err) {
+    console.error(
+      `Error saving ${fieldName} location to database for user ${userId}`,
+      err
+    );
+  }
+}
+
+export default { createUser, verifyEmail, accountVerification };
