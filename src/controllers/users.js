@@ -56,7 +56,6 @@ const createUser = async (req, res) => {
       "An email has been sent to your account, please verify your email"
     );
   } catch (error) {
-    console.log(error); // Log the error for debugging
     res.status(400).send("An error occurred");
   }
 };
@@ -72,12 +71,11 @@ const verifyEmail = async (req, res) => {
     });
     if (!token) return res.status(400).send("Invalid link");
 
-    await User.updateOne({ _id: user._id }, { isEmailVerified: true }); // Use the correct update syntax
+    await User.updateOne({ _id: user._id }, { isEmailVerified: true });
     await Token.findByIdAndRemove(token._id);
 
     res.send("Email verified successfully");
   } catch (error) {
-    console.log(error); // Log the error for debugging
     res.status(400).send("An error occurred");
   }
 };

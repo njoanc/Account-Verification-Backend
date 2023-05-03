@@ -25,7 +25,6 @@ const login = async (req, res) => {
   }
 
   // Generate token
-  // Generate token
   const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET_KEY);
 
   // Set token in response headers
