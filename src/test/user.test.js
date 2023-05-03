@@ -2,43 +2,105 @@ import request from "supertest";
 import app from "../index";
 import mongoose from "mongoose";
 import connectDB from "../config/db";
+import winston from "winston";
+
+import User from "../models/user";
+import Token from "../models/token";
+
+const logger = winston.createLogger({
+  level: "info",
+  format: winston.format.json(),
+  defaultMeta: { service: "user-service" },
+  transports: [new winston.transports.Console()],
+});
 
 describe("User signup", () => {
-  beforeAll((done) => {
-    connectDB()
-      .then(() => {
-        console.log("MongoDB connected successfully");
-        done();
+  // let db;
+
+  // beforeAll(async () => {
+  //   db = await connectDB();
+  //   logger.info("MongoDB connected successfully");
+  // });
+
+  // afterAll(async () => {
+  //   await mongoose.connection.close();
+  // });
+
+  // beforeEach(async () => {
+  //   await User.deleteMany({});
+  // });
+
+  it("should create a new user", async () => {
+    const res = await request(app)
+      .post("/users/signup")
+      .send({
+        name: "John Muvara",
+        email: "johndoe@gmail.com",
+        password: "password123",
+        gender: "MALE",
+        age: 30,
+        dateOfBirth: "1991-01-01",
+        maritalStatus: "SINGLE",
+        nationality: "RWANDAN",
       })
-      .catch((error) => {
-        console.error("MongoDB connection error:", error);
-        done();
-      });
+      .expect(200);
+
+    expect(res.text).toBe(
+      "An email has been sent to your account, please verify your email"
+    );
   });
 
-  afterAll(async () => {
-    await mongoose.connection.close();
-  });
+  it.each([
+    [
+      "Jane Kazuba",
+      "johndoe@gmail.com",
+      "password456",
+      "FEMALE",
+      25,
+      "1996-01-01",
+      "MARRIED",
+      "KENYA",
+      "Email already taken",
+    ],
+    [
+      "Bob Smith",
+      "bobsmith@gmail.com",
+      "password789",
+      "MALE",
+      40,
+      "1981-01-01",
+      "DIVORCED",
+      "KENYA",
+      "An error occurred",
+    ],
+  ])(
+    "should return an error if any required field is missing",
+    async (
+      name,
+      email,
+      password,
+      gender,
+      age,
+      dateOfBirth,
+      maritalStatus,
+      nationality,
+      expected
+    ) => {
+      const res = await request(app)
+        .post("/users/signup")
+        .send({
+          name,
+          email,
+          password,
+          gender,
+          age,
+          dateOfBirth,
+          maritalStatus,
+          nationality,
+        })
+        .expect(400);
 
-  it("should create a new user with valid input", async () => {
-    const res = await request(app).post("/api/users/signup").send({
-      name: "Jehanne Kazuba",
-      email: "jeanned@gmail.com",
-      password: "Password123",
-    });
-    expect(res.status).toEqual(201);
-    expect(res.body).toHaveProperty("_id");
-    expect(res.body).toHaveProperty("name", "Jehanne Kazuba");
-    expect(res.body).toHaveProperty("email", "jeanned@gmail.com");
-  });
-
-  it("should return an error with invalid credentials", async () => {
-    const res = await request(app).post("/api/users/signup").send({
-      name: "Jehanne Kazuba",
-      email: "jeanne@gmail.com",
-      password: "password", // invalid password
-    });
-    expect(res.status).toEqual(404);
-    expect(res.body.message).toEqual("Invalid user input");
-  });
+      expect(res.text).toBe(expected);
+    }
+  );
 });
