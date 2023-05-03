@@ -46,7 +46,7 @@ const userSchema = new mongoose.Schema({
       message: "Invalid Rwandan national ID format",
     },
   },
-  passportId: {
+  passportNumber: {
     type: String,
     validate: {
       validator: function (v) {
