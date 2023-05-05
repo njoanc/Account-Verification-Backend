@@ -57,6 +57,10 @@ Our system is using the following components:
 - Email is sent as a notification to the user when the account is verified.
 - The account is marked as verified.
 
+### System DESIGN Architecture
+
+![Alt text](/Users/jeannedarcnyiramwiza/Downloads/User Account Management Architecture (4).jpg)
+
 ## Testing the Application
 
 You can test the application using either Swagger UI or Postman.
@@ -64,7 +68,7 @@ You can test the application using either Swagger UI or Postman.
 ### Swagger UI
 
 - Open a web browser.
-- Navigate to `${BASE_URL}/api-docs` to view the Swagger UI.
+- Navigate to `https://account-verification-backend.jehanne.repl.co/api-docs` OR `http://localhost:4002/api-docs` to view the Swagger UI.
 - Use the Swagger UI to interact with the API endpoints and test the application.
   
 ### Postman
@@ -79,8 +83,10 @@ You can test the application using either Swagger UI or Postman.
 The API documentation is available using Swagger UI. To access the documentation:
 
 Start the server.
-Navigate to `${BASE_URL}/api-docs` in a web browser.
+Navigate to `https://account-verification-backend.jehanne.repl.co/api-docs` in a web browser.
 
 ## Deployed Link
 
-The application has been deployed to https://my-backend-application.herokuapp.com/. You can use this link to interact with the API endpoints and test the application.
+The application has been deployed to `https://account-verification-backend.jehanne.repl.co/`
+
+You can use this link to interact with the API endpoints and test the application.

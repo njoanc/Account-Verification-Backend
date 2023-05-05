@@ -5,6 +5,9 @@ import Token from "../models/token";
 import moment from "moment";
 import sendMail from "../utils/sendMail";
 import bcrypt from "bcrypt";
+const redis = require("redis");
+
+const client = redis.createClient();
 
 const login = async (req, res) => {
   const { email, password } = req.body;
@@ -101,4 +104,23 @@ const resetLink = async (req, res) => {
   }
 };
 
-export default { login, resetPassword, resetLink };
+const logout = async (req, res) => {
+  const token = req.headers.authorization.split(" ")[1];
+
+  jwt.verify(token, process.env.JWT_SECRET_KEY, (err, decoded) => {
+    if (err) {
+      console.log(err);
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+
+    client.set(`blacklist:${token}`, "true", "EX", 3600, (err) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({ message: "Internal server error" });
+      }
+      res.status(200).json({ message: "Logged out successfully" });
+    });
+  });
+};
+
+export default { login, resetPassword, resetLink, logout };

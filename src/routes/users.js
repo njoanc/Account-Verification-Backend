@@ -60,4 +60,6 @@ router.patch(
   ]),
   users.accountVerification
 );
+
+router.post("/logout", isAuthenticated, auth.logout);
 export default router;
