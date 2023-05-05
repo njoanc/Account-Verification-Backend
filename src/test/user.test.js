@@ -1,9 +1,10 @@
 import mongoose from "mongoose";
 import supertest from "supertest";
 import app from "../index";
-const api = supertest(app);
-
 import User from "../models/user";
+import Token from "../models/token";
+
+const api = supertest(app);
 
 jest.setTimeout(30000); // set timeout to 30 seconds
 
@@ -16,35 +17,47 @@ const user = {
   dateOfBirth: "1991-01-01",
   maritalStatus: "SINGLE",
   nationality: "RWANDAN",
+  isEmailVerified: false,
 };
 
 beforeEach(async () => {
-  await User.deleteOne({});
-  let userObject = new User(user);
+  await User.deleteMany({});
+  const userObject = new User(user);
   await userObject.save();
+
+  await Token.deleteMany({});
+  const newToken = new Token({
+    userId: userObject._id,
+    token: "test-@fgjkhler4832otoken",
+  });
+  await newToken.save();
 });
 
 afterEach(async () => {
   await User.deleteMany({});
+  await Token.deleteMany({});
 });
 
 afterAll(async () => {
   await mongoose.connection.close();
 });
 
-describe(" POST User signup", () => {
+describe("POST User signup", () => {
   it("should create a new user", async () => {
-    const newUser = {
-      name: "John Muvara",
-      email: "njoanc@gmail.com",
-      password: "password@123",
-      gender: "MALE",
-      age: 30,
-      dateOfBirth: "1991-01-01",
-      maritalStatus: "SINGLE",
-      nationality: "RWANDAN",
-    };
-    const res = await api.post("/users/signup").send(newUser).expect(201);
+    const res = await api
+      .post("/users/signup")
+      .send({
+        name: "John Muvara",
+        email: "njoanc@gmail.com",
+        password: "password@123",
+        gender: "MALE",
+        age: 30,
+        dateOfBirth: "1991-01-01",
+        maritalStatus: "SINGLE",
+        nationality: "RWANDAN",
+        isEmailVerified: false,
+      })
+      .expect(201);
     expect(res.body).toEqual({
       message:
         "An email has been sent to your account, please verify your email",
@@ -56,62 +69,3 @@ describe(" POST User signup", () => {
     expect(res.body).toEqual({ error: "Email already taken" });
   }, 10000);
 });
-
-afterAll(async () => {
-  await mongoose.connection.close();
-});
-
-//   it.each([
-//     [
-//       "Jane Kazuba",
-//       "johndoe@gmail.com",
-//       "password456",
-//       "FEMALE",
-//       25,
-//       "1996-01-01",
-//       "MARRIED",
-//       "KENYA",
-//       "Email already taken",
-//     ],
-//     [
-//       "Bob Smith",
-//       "bobsmith@gmail.com",
-//       "password789",
-//       "MALE",
-//       40,
-//       "1981-01-01",
-//       "DIVORCED",
-//       "KENYA",
-//       "An error occurred",
-//     ],
-//   ])(
-//     "should return an error if any required field is missing",
-//     async (
-//       name,
-//       email,
-//       password,
-//       gender,
-//       age,
-//       dateOfBirth,
-//       maritalStatus,
-//       nationality,
-//       expected
-//     ) => {
-//       const res = await request(app)
-//         .post("/users/signup")
-//         .send({
-//           name,
-//           email,
-//           password,
-//           gender,
-//           age,
-//           dateOfBirth,
-//           maritalStatus,
-//           nationality,
-//         })
-//         .expect(400);
-
-//       expect(res.text).toBe(expected);
-//     }
-//   );
-// });
