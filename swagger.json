@@ -34,6 +34,7 @@
 
     "/users/verify/{id}/{token}": {
       "get": {
+        "tags": ["User"],
         "summary": "Verify user's email",
         "description": "Verifies the user's email using the provided token",
         "parameters": [
@@ -276,6 +277,19 @@
           }
         }
       }
+    },
+    "/users/logout": {
+      "post": {
+        "tags": ["User"],
+        "summary": "Logout",
+        "operationId": "logout",
+
+        "responses": {
+          "200": {
+            "description": "Logout successfully"
+          }
+        }
+      }
     }
   },
 
@@ -285,6 +299,15 @@
         "type": "http",
         "scheme": "bearer",
         "bearerFormat": "JWT"
+      },
+      "googleAuth": {
+        "type": "oauth2",
+        "authorizationUrl": "https://accounts.google.com/o/oauth2/auth",
+        "flow": "implicit",
+        "scopes": {
+          "profile": "Access to user profile information",
+          "email": "Access to user email information"
+        }
       }
     },
     "User": {
