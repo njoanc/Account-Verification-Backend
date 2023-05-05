@@ -5,13 +5,14 @@
 ## Running the Application
 
 To run the application, you will need to have Node.js and MongoDB installed on your computer.
-
+```
 1. Clone this repository to your local machine.
 2. In the terminal, navigate to the root of the code base.
 3. Run *npm install* to install the necessary dependencies.
 4. Rename *.env.example* file to *.env*
 5. Modify *.env* file with your credentials
 6. Run *npm run start:dev* to start the application.
+```
 
 ## System Architecture
 
