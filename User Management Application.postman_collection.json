@@ -1,0 +1,548 @@
+{
+	"info": {
+		"_postman_id": "85e58979-6287-4330-ae54-9871d5c51512",
+		"name": "User Management Application",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "6667227"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "signup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"Jehanne Kazuba\",\n    \"email\":\"njoanc@gmail.com\",\n    \"password\":\"Kazubajoanna@34\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:4000/users/signup"
+					},
+					"response": [
+						{
+							"name": "signup",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\":\"Jehanney Kazuba\",\n    \"email\":\"njoandfbc@gmail.com\",\n    \"password\":\"Kazubajoanna@34\",\n    \"age\":\"20\",\n    \"gender\":\"FEMALE\",\n    \"dateOfBirth\":\"13/09/1999\",\n    \"maritalStatus\":\"SINGLE\",\n    \"nationality\":\"RWANDESE\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:4002/users/signup"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "html",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "64"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"40-HLfCF7akkqhg5F0kaJBnS+eSutk\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 30 Apr 2023 07:34:15 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "An email has been sent to your account, please verify your email"
+						},
+						{
+							"name": "signup",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\":\"Jehanney Kazuba\",\n    \"email\":\"njoanc@gmail.com\",\n    \"password\":\"Kazubajoanna@34\",\n    \"age\":\"20\",\n    \"gender\":\"FEMALE\",\n    \"dateOfBirth\":\"13/09/1999\",\n    \"maritalStatus\":\"SINGLE\",\n    \"nationality\":\"RWANDESE\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "https://account-verification-backend.jehanne.repl.co/users/signup"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "html",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Length",
+									"value": "64"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 04 May 2023 00:54:17 GMT"
+								},
+								{
+									"key": "Etag",
+									"value": "W/\"40-HLfCF7akkqhg5F0kaJBnS+eSutk\""
+								},
+								{
+									"key": "Expect-Ct",
+									"value": "max-age=2592000, report-uri=\"https://sentry.repl.it/api/10/security/?sentry_key=615192fd532445bfbbbe966cd7131791\""
+								},
+								{
+									"key": "Replit-Cluster",
+									"value": "global"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=4790195; includeSubDomains"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								}
+							],
+							"cookie": [],
+							"body": "An email has been sent to your account, please verify your email"
+						}
+					]
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n     \"email\":\"njoandfbc@gmail.com\",\n  \"password\":\"Kazungujehanne@13\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:4002/users/login"
+					},
+					"response": [
+						{
+							"name": "login",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n     \"email\":\"njoandfbc@gmail.com\",\n    \"password\":\"Kazubajoanna@34\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:4002/users/login"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "236"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"ec-s6UUilAMM4qUa/F7YjsktP9d5PI\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 30 Apr 2023 07:36:59 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDRlMTllZmRjOWJjZTdiOTdmN2ViOTgiLCJpYXQiOjE2ODI4NDAyMTl9.cUQ2ViEEACZ4p89CZCQH04c6u5fH7s6p8hSY7pwkp0A\",\n    \"user\": {\n        \"id\": \"644e19efdc9bce7b97f7eb98\",\n        \"email\": \"njoandfbc@gmail.com\"\n    }\n}"
+						},
+						{
+							"name": "login",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n     \"email\":\"njoandfbc@gmail.com\",\n  \"password\":\"Kazungujehanne@13\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:4002/users/login"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "236"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"ec-zzxf2Q+DJACfdcuI1cRgJ6h9EyM\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 30 Apr 2023 12:35:37 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDRlMTllZmRjOWJjZTdiOTdmN2ViOTgiLCJpYXQiOjE2ODI4NTgxMzd9.8ye_-pbtSTjHe9Pfn3KFrKWTRSXYpdYBs-zyNfrqF8Q\",\n    \"user\": {\n        \"id\": \"644e19efdc9bce7b97f7eb98\",\n        \"email\": \"njoandfbc@gmail.com\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "email verification",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:4002/users/verify/644e19efdc9bce7b97f7eb98/61196491f32ea989d24f50235346a4b55da0544ae3304098c06e95383ef3df33"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "html",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "27"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1b-6raP5NOK4AqCc5CvQ7QdDX/HhGs\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 30 Apr 2023 07:34:41 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "Email verified successfully"
+						}
+					]
+				},
+				{
+					"name": "reset-password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": "http://localhost:4002/users/reset-password"
+					},
+					"response": [
+						{
+							"name": "reset-password",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\":\"njoandfbc@gmail.com\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:4002/users/reset-password"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "30"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1e-oP150MB8Ndn8hNF5aftUabJkzXA\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 30 Apr 2023 12:10:50 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Reset email sent\"\n}"
+						}
+					]
+				},
+				{
+					"name": "reset-password-token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"password\":\"Kazungujehanne@13\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:4002/users/reset-password/3e18699fcac685b3fdd41066e2322976eb38d62811fe8a656bcbe30e83e04978"
+					},
+					"response": [
+						{
+							"name": "reset-password-token",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"password\":\"Kazungujehanne@13\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:4002/users/reset-password/a46c740abc62bc6fc6d03e52e65c40c27cfdc176960cf25faff5aadc2d4d3431"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "41"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"29-JLWAnLrf6qmJkXqaEuCQpWt9O0c\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 30 Apr 2023 12:35:21 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Password reset successfully\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "User Verification",
+			"item": [
+				{
+					"name": "account verification",
+					"request": {
+						"method": "POST",
+						"header": []
+					},
+					"response": [
+						{
+							"name": "account verification",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nationalId\":\"11900770071292032\",\n    \"passportNumber\":\"PC701953\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:4002/users/645188bef874d1ac5ed2f8c6"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "45"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2d-wo6oM7vtBDkaTvVOdbPj87LpOyA\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 03 May 2023 21:39:52 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"messaged\": \"Your account has been verified\"\n}"
+						}
+					]
+				}
+			]
+		}
+	]
+}

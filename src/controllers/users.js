@@ -34,7 +34,7 @@ const createUser = async (req, res) => {
     const newUser = new User({
       name,
       email,
-      password: hashedPassword, // Use the correct field name
+      password: hashedPassword,
       gender,
       age,
       dateOfBirth,
@@ -52,9 +52,10 @@ const createUser = async (req, res) => {
     const message = `${process.env.BASE_URL}/users/verify/${newUser.id}/${newToken.token}`;
     await sendMail(newUser.email, "Verify Email", message);
 
-    res.send(
-      "An email has been sent to your account, please verify your email"
-    );
+    res.status(201).json({
+      message:
+        "An email has been sent to your account, please verify your email",
+    });
   } catch (error) {
     res.status(400).send("An error occurred");
   }

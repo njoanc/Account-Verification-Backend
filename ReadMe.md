@@ -34,8 +34,8 @@ Our system is using the following components:
 - Login and Logout: Users can log in and out of their account.
 - Password Reset: Users can reset their password via email.
 - Security Features
-- Password Strength Enforcement: Passwords should be at least 8 characters long and include a combination of uppercase and lowercase letters, numbers, and special characters.
-- Multi-factor authentication: The option to add a second form of authentication, such as Google Authenticator.
+ * Password Strength Enforcement: Passwords should be at least 8 characters long and include a combination of uppercase and lowercase letters, numbers, and special characters.
+ * Multi-factor authentication: The option to add a second form of authentication, such as Google Authenticator.
 - Login Link: The ability to log in via a link that is emailed to the user.
 - Reset Link: The ability to reset a password via a link that is emailed to the user.
 ```
@@ -63,6 +63,7 @@ Our system is using the following components:
 ```
 ### System DESIGN Architecture
 
+In this architecture, the application is broken down into smaller, independent services that communicate with each other through APIs. This allows for easier scalability and better fault tolerance,
 
 ![Architecture](./User%20Account%20Management%20Architecture%20(4).jpg)
 
@@ -73,29 +74,15 @@ You can test the application using either Swagger UI or Postman.
 ### Swagger UI
 
 ```
+- RUN your server
 - Open a web browser.
-- Navigate to `https://account-verification-backend.jehanne.repl.co/api-docs` OR `http://localhost:4002/api-docs` to view the Swagger UI.
-- Use the Swagger UI to interact with the API endpoints and test the application.
+- `http://localhost:4002/api-docs` to view the Swagger UI.
+- Use the Swagger UI to interact with the API endpoints documentation and test the application.
  ``` 
 ### Postman
 ```
 - Download and install Postman on your computer.
 - Open Postman.
-- Import the My Backend Application.postman_collection.json file located in the root of the code base.
+- Import the My Backend `User Management Application.postman_collection.json` file located in the root of the code base.
 - Use Postman to interact with the API endpoints and test the application.
-```
-## API Documentation
-
-```
-The API documentation is available using Swagger UI. To access the documentation:
-
-Start the server.
-Navigate to `https://account-verification-backend.jehanne.repl.co/api-docs` in a web browser.
-```
-## Deployed Link
-
-```
-The application has been deployed to `https://account-verification-backend.jehanne.repl.co/`
-
-You can use this link to interact with the API endpoints and test the application.
 ```

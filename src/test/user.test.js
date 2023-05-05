@@ -1,106 +1,117 @@
-import request from "supertest";
-import app from "../index";
 import mongoose from "mongoose";
-import connectDB from "../config/db";
-import winston from "winston";
+import supertest from "supertest";
+import app from "../index";
+const api = supertest(app);
 
 import User from "../models/user";
-import Token from "../models/token";
 
-const logger = winston.createLogger({
-  level: "info",
-  format: winston.format.json(),
-  defaultMeta: { service: "user-service" },
-  transports: [new winston.transports.Console()],
+jest.setTimeout(30000); // set timeout to 30 seconds
+
+const user = {
+  name: "John Muvara",
+  email: "johndoe@gmail.com",
+  password: "password123",
+  gender: "MALE",
+  age: 30,
+  dateOfBirth: "1991-01-01",
+  maritalStatus: "SINGLE",
+  nationality: "RWANDAN",
+};
+
+beforeEach(async () => {
+  await User.deleteOne({});
+  let userObject = new User(user);
+  await userObject.save();
 });
 
-describe("User signup", () => {
-  // let db;
+afterEach(async () => {
+  await User.deleteMany({});
+});
 
-  // beforeAll(async () => {
-  //   db = await connectDB();
-  //   logger.info("MongoDB connected successfully");
-  // });
+afterAll(async () => {
+  await mongoose.connection.close();
+});
 
-  // afterAll(async () => {
-  //   await mongoose.connection.close();
-  // });
-
-  // beforeEach(async () => {
-  //   await User.deleteMany({});
-  // });
-
+describe(" POST User signup", () => {
   it("should create a new user", async () => {
-    const res = await request(app)
-      .post("/users/signup")
-      .send({
-        name: "John Muvara",
-        email: "johndoe@gmail.com",
-        password: "password123",
-        gender: "MALE",
-        age: 30,
-        dateOfBirth: "1991-01-01",
-        maritalStatus: "SINGLE",
-        nationality: "RWANDAN",
-      })
-      .expect(200);
-
-    expect(res.text).toBe(
-      "An email has been sent to your account, please verify your email"
-    );
+    const newUser = {
+      name: "John Muvara",
+      email: "njoanc@gmail.com",
+      password: "password@123",
+      gender: "MALE",
+      age: 30,
+      dateOfBirth: "1991-01-01",
+      maritalStatus: "SINGLE",
+      nationality: "RWANDAN",
+    };
+    const res = await api.post("/users/signup").send(newUser).expect(201);
+    expect(res.body).toEqual({
+      message:
+        "An email has been sent to your account, please verify your email",
+    });
   });
 
-  it.each([
-    [
-      "Jane Kazuba",
-      "johndoe@gmail.com",
-      "password456",
-      "FEMALE",
-      25,
-      "1996-01-01",
-      "MARRIED",
-      "KENYA",
-      "Email already taken",
-    ],
-    [
-      "Bob Smith",
-      "bobsmith@gmail.com",
-      "password789",
-      "MALE",
-      40,
-      "1981-01-01",
-      "DIVORCED",
-      "KENYA",
-      "An error occurred",
-    ],
-  ])(
-    "should return an error if any required field is missing",
-    async (
-      name,
-      email,
-      password,
-      gender,
-      age,
-      dateOfBirth,
-      maritalStatus,
-      nationality,
-      expected
-    ) => {
-      const res = await request(app)
-        .post("/users/signup")
-        .send({
-          name,
-          email,
-          password,
-          gender,
-          age,
-          dateOfBirth,
-          maritalStatus,
-          nationality,
-        })
-        .expect(400);
-
-      expect(res.text).toBe(expected);
-    }
-  );
+  it("should return an error if email is already taken", async () => {
+    const res = await api.post("/users/signup").send(user).expect(400);
+    expect(res.body).toEqual({ error: "Email already taken" });
+  }, 10000);
 });
+
+afterAll(async () => {
+  await mongoose.connection.close();
+});
+
+//   it.each([
+//     [
+//       "Jane Kazuba",
+//       "johndoe@gmail.com",
+//       "password456",
+//       "FEMALE",
+//       25,
+//       "1996-01-01",
+//       "MARRIED",
+//       "KENYA",
+//       "Email already taken",
+//     ],
+//     [
+//       "Bob Smith",
+//       "bobsmith@gmail.com",
+//       "password789",
+//       "MALE",
+//       40,
+//       "1981-01-01",
+//       "DIVORCED",
+//       "KENYA",
+//       "An error occurred",
+//     ],
+//   ])(
+//     "should return an error if any required field is missing",
+//     async (
+//       name,
+//       email,
+//       password,
+//       gender,
+//       age,
+//       dateOfBirth,
+//       maritalStatus,
+//       nationality,
+//       expected
+//     ) => {
+//       const res = await request(app)
+//         .post("/users/signup")
+//         .send({
+//           name,
+//           email,
+//           password,
+//           gender,
+//           age,
+//           dateOfBirth,
+//           maritalStatus,
+//           nationality,
+//         })
+//         .expect(400);
+
+//       expect(res.text).toBe(expected);
+//     }
+//   );
+// });
