@@ -59,7 +59,7 @@ Our system is using the following components:
 
 ### System DESIGN Architecture
 
-![Design Architecture](/Users/jeannedarcnyiramwiza/Downloads/User Account Management Architecture (4).jpg?raw=true "Title")
+![Architecture](./User%20Account%20Management%20Architecture%20(4).jpg)
 
 ## Testing the Application
 
