@@ -63,9 +63,9 @@ Our system is using the following components:
 ```
 ### System DESIGN Architecture
 
-```
+
 ![Architecture](./User%20Account%20Management%20Architecture%20(4).jpg)
-```
+
 ## Testing the Application
 
 You can test the application using either Swagger UI or Postman.
