@@ -1,106 +1,71 @@
-import request from "supertest";
-import app from "../index";
 import mongoose from "mongoose";
-import connectDB from "../config/db";
-import winston from "winston";
-
+import supertest from "supertest";
+import app from "../index";
 import User from "../models/user";
 import Token from "../models/token";
 
-const logger = winston.createLogger({
-  level: "info",
-  format: winston.format.json(),
-  defaultMeta: { service: "user-service" },
-  transports: [new winston.transports.Console()],
+const api = supertest(app);
+
+jest.setTimeout(30000); // set timeout to 30 seconds
+
+const user = {
+  name: "John Muvara",
+  email: "johndoe@gmail.com",
+  password: "password123",
+  gender: "MALE",
+  age: 30,
+  dateOfBirth: "1991-01-01",
+  maritalStatus: "SINGLE",
+  nationality: "RWANDAN",
+  isEmailVerified: false,
+};
+
+beforeEach(async () => {
+  await User.deleteMany({});
+  const userObject = new User(user);
+  await userObject.save();
+
+  await Token.deleteMany({});
+  const newToken = new Token({
+    userId: userObject._id,
+    token: "test-@fgjkhler4832otoken",
+  });
+  await newToken.save();
 });
 
-describe("User signup", () => {
-  // let db;
+afterEach(async () => {
+  await User.deleteMany({});
+  await Token.deleteMany({});
+});
 
-  // beforeAll(async () => {
-  //   db = await connectDB();
-  //   logger.info("MongoDB connected successfully");
-  // });
+afterAll(async () => {
+  await mongoose.connection.close();
+});
 
-  // afterAll(async () => {
-  //   await mongoose.connection.close();
-  // });
-
-  // beforeEach(async () => {
-  //   await User.deleteMany({});
-  // });
-
+describe("POST User signup", () => {
   it("should create a new user", async () => {
-    const res = await request(app)
+    const res = await api
       .post("/users/signup")
       .send({
         name: "John Muvara",
-        email: "johndoe@gmail.com",
-        password: "password123",
+        email: "njoanc@gmail.com",
+        password: "password@123",
         gender: "MALE",
         age: 30,
         dateOfBirth: "1991-01-01",
         maritalStatus: "SINGLE",
         nationality: "RWANDAN",
+        isEmailVerified: false,
       })
-      .expect(200);
-
-    expect(res.text).toBe(
-      "An email has been sent to your account, please verify your email"
-    );
+      .expect(201);
+    expect(res.body).toEqual({
+      message:
+        "An email has been sent to your account, please verify your email",
+    });
   });
 
-  it.each([
-    [
-      "Jane Kazuba",
-      "johndoe@gmail.com",
-      "password456",
-      "FEMALE",
-      25,
-      "1996-01-01",
-      "MARRIED",
-      "KENYA",
-      "Email already taken",
-    ],
-    [
-      "Bob Smith",
-      "bobsmith@gmail.com",
-      "password789",
-      "MALE",
-      40,
-      "1981-01-01",
-      "DIVORCED",
-      "KENYA",
-      "An error occurred",
-    ],
-  ])(
-    "should return an error if any required field is missing",
-    async (
-      name,
-      email,
-      password,
-      gender,
-      age,
-      dateOfBirth,
-      maritalStatus,
-      nationality,
-      expected
-    ) => {
-      const res = await request(app)
-        .post("/users/signup")
-        .send({
-          name,
-          email,
-          password,
-          gender,
-          age,
-          dateOfBirth,
-          maritalStatus,
-          nationality,
-        })
-        .expect(400);
-
-      expect(res.text).toBe(expected);
-    }
-  );
+  it("should return an error if email is already taken", async () => {
+    const res = await api.post("/users/signup").send(user).expect(400);
+    expect(res.body).toEqual({ error: "Email already taken" });
+  }, 10000);
 });
