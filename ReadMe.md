@@ -1,6 +1,6 @@
 # Project Name
 
- *User Account Management* application is responsible for managing user authentication and profiles.
+ *User Account Management Backend* application is responsible for managing user authentication and profiles.
   
 ## Running the Application
 
@@ -69,7 +69,12 @@ In this architecture, the application is broken down into smaller, independent s
 
 ## Testing the Application
 
-You can test the application using either Swagger UI or Postman.
+To run the tests for this application, follow these steps:
+
+1. Make sure you have Node.js and npm installed on your machine
+2. Clone the repository and navigate to the root directory
+3. Install dependencies by running `npm install --save-dev supertest`
+4. Run the tests by running `npm test`
 
 ### Swagger UI
 
