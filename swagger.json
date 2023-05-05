@@ -34,6 +34,7 @@
 
     "/users/verify/{id}/{token}": {
       "get": {
+        "tags": ["User"],
         "summary": "Verify user's email",
         "description": "Verifies the user's email using the provided token",
         "parameters": [
