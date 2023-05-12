@@ -10,7 +10,7 @@ jest.setTimeout(30000); // set timeout to 30 seconds
 
 const user = {
   name: "John Muvara",
-  email: "johndoe@gmail.com",
+  email: "jkarakeoe@gmail.com",
   password: "password123",
   gender: "MALE",
   age: 30,
@@ -48,7 +48,7 @@ describe("POST User signup", () => {
       .post("/users/signup")
       .send({
         name: "John Muvara",
-        email: "njoanc@gmail.com",
+        email: "njojkncy@gmail.com",
         password: "password@123",
         gender: "MALE",
         age: 30,
